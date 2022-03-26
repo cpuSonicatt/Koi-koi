@@ -1,0 +1,1682 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Koi-koi</title>
+	<link rel="icon" type="image/x-icon" href="./favicon.png"> 
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			white-space: pre-wrap;
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			text-indent: -1.7em;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+		}
+
+		.simple-table-header {
+			background: rgb(247, 246, 243);
+			color: black;
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(145, 145, 142, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(187, 132, 108, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(215, 129, 58, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 148, 51, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(108, 155, 125, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(91, 151, 189, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(167, 130, 195, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(205, 116, 159, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(225, 111, 100, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(145, 145, 142, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(187, 132, 108, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(215, 129, 58, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 148, 51, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(108, 155, 125, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(91, 151, 189, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(167, 130, 195, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(205, 116, 159, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(225, 111, 100, 1);
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-opaquegray {
+			background-color: rgba(255, 255, 255, 0.0375);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="4d5680cb-241d-43ab-8d8b-dee00b624737" class="page sans">
+		<header>
+			<h1 class="page-title">Koi-koi</h1>
+		</header>
+		<div class="page-body">
+			<h2 id="7fd5919a-bdb9-46d1-884f-34936ce21903" class="">Terms</h2>
+			<ul id="8e37df6a-b1ff-4d60-8a6a-7551691ca254" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Hanafuda </strong>- the name of the deck of cards.</li>
+			</ul>
+			<ul id="e4c4e808-3895-487e-91d4-e8bfba60a7b2" class="bulleted-list">
+				<li style="list-style-type:disc">the <strong>Oya</strong> - “parent”; dealer.</li>
+			</ul>
+			<ul id="510ae531-206b-423b-b3e2-eba98480a1ca" class="bulleted-list">
+				<li style="list-style-type:disc">the <strong>Ko</strong> - “child”; the other player.</li>
+			</ul>
+			<ul id="fced119b-0b18-4bcc-9616-bcbb82c2759a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Field</strong> - the face-up cards on the table.</li>
+			</ul>
+			<ul id="a543399d-6863-44ab-9789-37fff41b8945" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Point pile</strong> - where you put your matched cards on the
+					table. </li>
+			</ul>
+			<ul id="facc2889-a2d5-45d2-a171-27048eec48e9" class="bulleted-list">
+				<li style="list-style-type:disc">a<strong> yaku </strong>- a special combination of cards that score
+					points.</li>
+			</ul>
+			<ul id="89817976-6039-4a57-bf08-1ddf6c48043f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>“Koi-koi”</strong> - “Come on!”; the signifier to continue
+					playing the round.</li>
+			</ul>
+			<ul id="cf0e3364-1fba-45a8-b8c4-98c1d0f850eb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>“Stop”</strong> - the signifier to stop playing the round.</li>
+			</ul>
+			<ul id="192a6067-f289-4f11-b8ae-95b930e1d630" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Month(s) </strong>- the suits that make up the deck. </li>
+			</ul>
+			<p id="d0d16e4e-664e-4643-9c7d-8df4d446661e" class="">
+			</p>
+			<h2 id="4938ceab-b7b6-4c0d-a67b-4e6d448c8333" class="">Objective</h2>
+			<p id="e40b6e53-a804-4a91-af2c-ea46ac3a8880" class="">Make the best combination of cards by matching based
+				on the month.</p>
+			<p id="3808ae0d-a682-4fbf-98ef-5fd8ffee754e" class="">
+			</p>
+			<h2 id="ccb0b08f-b39d-4745-bf54-917125fdd418" class="">Deal</h2>
+			<p id="8fa438c1-68ea-4100-b044-daab7f0cfd9e" class="">Choose an <strong>Oya </strong>(either by random or by
+				both players drawing a single card and whoever’s card is earliest. If both are the same month, whichever
+				is highest in value. If both are the same value, retry.)</p>
+			<p id="a122b721-181e-4e98-a580-6f360064e3a3" class="">Deal 8 cards to <strong>Ko</strong> face down, then 8
+				cards to <strong>field </strong>face up, then 8 cards face down to yourself. Set aside the rest of the
+				cards to form a draw pile.</p>
+			<p id="80f3b829-1a8f-4483-8e62-77b1c0c63fdb" class="">
+			</p>
+			<h2 id="a7de3d89-4050-421f-ac5a-85a68b6b1413" class="">Play</h2>
+			<p id="8973f6c0-d1cb-43ff-8230-23bd1f9ab676" class="">The game is typically played across 12 rounds,
+				corresponding to each <strong>month </strong>of the year (round 1 is January, round 2 is February,
+				etc.).</p>
+			<p id="3839ebbc-ab78-41ed-851a-276a3410e120" class="">Starting with the <strong>Oya</strong>, match a card
+				by month/plant from your hand with one on the <strong>field</strong>, and move both to your
+				<strong>point pile</strong>. If you can’t make a match, choose a card from your hand and place it on the
+				<strong>field</strong>.</p>
+			<p id="b10d402c-0cf1-4566-889e-a477df61c43f" class="">Then, draw 1 card from the top of the draw pile, and
+				if it matches with a card on the <strong>field</strong>, move both to your <strong>point pile</strong>.
+				If you can’t make a match, place the card on the <strong>field</strong>.</p>
+			<p id="27caa3b1-c51e-49cc-9970-c08bd8252a87" class="">If a player is able to match 2 cards on the
+				<strong>field </strong>with one in their hand or from the draw pile, they must make a choice. If a
+				player is able to match 3 cards on the <strong>field </strong>with one in their hand or from the draw
+				pile, they collect all cards from that suit and take them to their <strong>point pile</strong>.</p>
+			<p id="33db6cd1-e303-4001-b452-21c86321e703" class="">If the current player has scored a
+				<strong>yaku</strong>, they must choose if they wish to “<strong>Koi-koi</strong>”, or
+				“<strong>Stop</strong>”.</p>
+			<ul id="fa0b82b4-1c81-4994-b75c-1e00b5811106" class="bulleted-list">
+				<li style="list-style-type:disc">If the current player calls “<strong>Koi-koi</strong>”, then play
+					continues as normal until another yaku is made. The opposing player’s possible score is multiplied
+					with each call.<ul id="4eac8e82-3ed7-42a5-a018-a409c1a7b8e9" class="bulleted-list">
+						<li style="list-style-type:circle">If the player who previously called
+							“<strong>Koi-koi</strong>” gets another <strong>yaku</strong>, they can then decide whether
+							they wish to “<strong>Koi-koi</strong>”, or “<strong>Stop</strong>”.</li>
+					</ul>
+					<ul id="c8d1994f-104f-4eec-a6bf-a590dd251535" class="bulleted-list">
+						<li style="list-style-type:circle">If the player who didn’t previously call
+							“<strong>Koi-ko</strong>i” gets a <strong>yaku, </strong>play stops and that player gets
+							their <strong>yaku</strong> score, multiplied by however many times the other played called
+							“<strong>Koi-koi</strong>”, plus 1. (i.e. if Player A called “<strong>Koi-koi</strong>”
+							once, the multiplier for the other player would be x2. Twice would be x3. Thrice would be
+							x4, etc.)</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="bf418649-b3fc-476b-9d5d-6dd777d230ed" class="bulleted-list">
+				<li style="list-style-type:disc">If the current player called “<strong>Stop</strong>”, then the round is
+					over and points are tallied up. The current player then becomes the <strong>Oya</strong>.</li>
+			</ul>
+			<p id="c621237d-aea6-4ca8-8748-fac253b6dfd4" class="">If both players end up with empty hands, with or
+				without a <strong>yaku</strong>, and no player has called “<strong>Stop</strong>”, then the round is at
+				a stalemate, and no points are awarded.</p>
+			<p id="d9a27767-1af5-47f7-9da3-ce23615610a7" class="">
+			</p>
+			<h2 id="a9e0e2a5-de11-4d08-97b5-675704792afb" class="">Yaku/Scoring</h2>
+			<p id="31878a83-ba02-4a10-ad06-c18021482941" class=""><strong>Yaku </strong>can stack to score more points.
+				If you score 7 or more points, then your score is doubled.</p>
+			<h3 id="cd6f6c6b-4abb-4e53-b1d7-ed6c408d44ac" class="">FIVE LIGHTS - 10 points - <em>All light cards</em>
+			</h3>
+			<div id="a0f94141-a344-4213-a518-55757f06c202" class="column-list">
+				<div id="1319a0fb-0e3d-4a2b-8eae-84862d08f070" style="width:20%" class="column">
+					<figure id="85108965-804c-465d-85e6-f3276eca6cf3" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+				</div>
+				<div id="2a19c2b8-0150-4cb8-bccd-47f1e9430f05" style="width:20%" class="column">
+					<figure id="461de126-d07e-4c5f-a6fd-93fcdb6bb2df" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+				</div>
+				<div id="fd269c9e-d978-49a6-a4c4-c4e2cc0e51a7" style="width:20%" class="column">
+					<figure id="cfecdfa9-0a53-43a3-9557-13b5c6bf2d40" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+				</div>
+				<div id="72dfe2c6-811d-4d8a-8304-4aa87134577a" style="width:20%" class="column">
+					<figure id="6a7e9be8-f725-41f1-a154-638a49977b7b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp" /></a></figure>
+				</div>
+				<div id="54421eaf-72d3-4c01-bb5c-e89702c7b713" style="width:20%" class="column">
+					<figure id="1cdf8f44-5f44-4cb2-a1df-fe063ce4f4b2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp" /></a></figure>
+				</div>
+			</div>
+			<p id="835440ce-9855-4948-98b6-aab41bf70855" class="">
+			</p>
+			<h3 id="e7b0c6c8-0bb2-400b-bff8-63de206dacc0" class="">DRY FOUR LIGHTS - 8 points - <em>All light cards
+					excluding Rain</em></h3>
+			<div id="9160a48d-7739-4ab0-b70e-80c20ce84829" class="column-list">
+				<div id="e512c15b-1ecb-4d2f-880d-104e47e98bd7" style="width:20%" class="column">
+					<figure id="96609aad-1854-4168-ba41-1825d04838d2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+				</div>
+				<div id="88a09136-e25c-499b-80c4-3cfa8dc51ec5" style="width:20%" class="column">
+					<figure id="d3cd31a1-483d-4a0a-90c3-703f6bb30ffc" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+				</div>
+				<div id="383c4c27-1c6d-4c86-b300-e42232b12d92" style="width:20%" class="column">
+					<figure id="bd273368-42eb-4a25-a7cb-a0d104a55184" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+				</div>
+				<div id="6fae8259-b7b5-4dd9-97ac-e4592f0810d5" style="width:20%" class="column">
+					<figure id="c71ec984-43b9-418f-a2bf-2b510833074a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp" /></a></figure>
+				</div>
+				<div id="f2d6249d-3311-4137-af77-20747a327d94" style="width:20%" class="column">
+					<figure id="d641d178-d582-40bf-93ac-ba389734837a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="0dae243f-2960-4dc1-b7cc-8afeb6f281c5" class="">
+			</p>
+			<h3 id="2a05f913-e290-4a20-8298-06d5486fccd2" class="">RAINY FOUR LIGHTS - 7 points - <em>4 light cards
+					including Rain</em></h3>
+			<div id="7d94bb2d-55cf-4282-b0ff-6bb441babfd6" class="column-list">
+				<div id="580ad072-5c0c-4c43-8817-b468ae0bb83e" style="width:20%" class="column">
+					<figure id="9b5fff63-4a6b-4352-ae66-04e9f2fdeb74" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+				</div>
+				<div id="70301190-62ee-420c-98bb-7c41b60bcdce" style="width:20%" class="column">
+					<figure id="d45451a1-c04a-4051-9e48-348d8bce840d" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+				</div>
+				<div id="fae7f765-cac9-446d-9b27-98721e7f7286" style="width:20%" class="column">
+					<figure id="2d3261ed-f9ca-4d5a-b059-6f41638df25e" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+				</div>
+				<div id="636c9970-28a2-4770-810a-a3c1ef0218d0" style="width:20%" class="column">
+					<figure id="4c45f094-c1da-4bb3-a274-9df9bf1d41ce" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp" /></a></figure>
+				</div>
+				<div id="e4b90726-b73a-4be2-b49a-76e9c457aa74" style="width:20%" class="column">
+					<figure id="40b087c1-ff82-4277-9ce0-15b280f7bda5" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="5dc3f990-50d2-4bd1-a6cf-b62a43f0257c" class=""><em>Any combination of 4 light cards and the Rain
+					card.</em></p>
+			<p id="fd682b7c-5278-4e4e-861c-40dc6f1468fb" class="">
+			</p>
+			<h3 id="9c7d529c-f2d6-4468-a26b-626b5d6b44d7" class="">THREE LIGHTS - 6 points - 3 <em>light cards excluding
+					Rain</em></h3>
+			<div id="a7746f3d-177d-4ff6-a2ed-770c0e9fcda1" class="column-list">
+				<div id="ffa42c6c-5dbd-44ce-8be6-0a45963f5ae1" style="width:20%" class="column">
+					<figure id="326046ff-a8f0-49e6-b7e0-eb1c87ce33bd" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+				</div>
+				<div id="2f3bd073-d5a4-4702-9901-6a56da19d7d6" style="width:20%" class="column">
+					<figure id="3da7615a-3737-47f8-82c1-3d38cde15374" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+				</div>
+				<div id="bc82c1ed-829c-4bf6-95e6-d3cf433a448e" style="width:20%" class="column">
+					<figure id="63bb4c78-015e-4e3d-9ae4-c10b9b6d883c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+				</div>
+				<div id="8855e71f-934c-45f6-b4a4-94c582e1d356" style="width:20%" class="column">
+					<figure id="0fc22e33-ea14-4ae5-9424-21514d8a421b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="ca88169a-6ed6-458a-b18e-ed6ef2e90797" style="width:20%" class="column">
+					<figure id="bd3e8bd4-0c48-4232-a76c-be1afb89c0c1" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="c5ab2156-080b-413f-adae-7d02e1ba13b2" class=""><em>Any combination of 3 light cards without the Rain
+					card.</em></p>
+			<p id="29cd5614-a919-40d5-8988-88ee550ef36e" class="">
+			</p>
+			<h3 id="7ad62c42-8c49-497e-937b-c58d530dbaa2" class="">BOAR-DEER-BUTTERFLY - 5 points</h3>
+			<div id="14b2dae7-d416-400d-ae03-a8cd97ad22c8" class="column-list">
+				<div id="38a55da0-1345-487e-87e6-ee0401df7928" style="width:20%" class="column">
+					<figure id="9c26fb4f-3e38-4549-befd-7c346d5b7c18" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/tocq74uj.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/tocq74uj.bmp" /></a></figure>
+				</div>
+				<div id="0c2de0e6-6485-4e5e-9dc2-34c328daa692" style="width:20%" class="column">
+					<figure id="cf8e8383-0f15-4a7b-850d-02f1cc80e0fb" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rwnky30e.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rwnky30e.bmp" /></a></figure>
+				</div>
+				<div id="b503bb55-6494-44eb-bdfc-2cc537948f18" style="width:20%" class="column">
+					<figure id="61db6155-abbf-438b-b3b6-3a9dfd82c30c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp" /></a></figure>
+				</div>
+				<div id="a67f93d9-658a-4322-85c4-563337c4c842" style="width:20%" class="column">
+					<figure id="14d8d760-7ed8-45ca-b27e-08177068a4bf" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="992aa0af-f61f-423b-8967-92fa14f7a2c8" style="width:20%" class="column">
+					<figure id="8100c094-406b-465b-8a7a-33f4cfb19a59" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="6c0736f4-efd9-452f-bcce-dacc25d9a143" class="">
+			</p>
+			<h3 id="428f7626-7934-4d8d-90d5-85753691d7a9" class="">ANIMALS - 1 point (+ 1 for each additional Animal
+				card) - <em>5 or more Animal cards</em></h3>
+			<div id="0a022bd5-ec13-4b76-8276-286836f071d6" class="column-list">
+				<div id="2fcc48dd-51c6-4f91-b9fe-b03494669734" style="width:20%" class="column">
+					<figure id="fbfa4459-7b8a-40e3-9422-bafdff3b1298" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/aq91q86r.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/aq91q86r.bmp" /></a></figure>
+				</div>
+				<div id="f08ef59a-1317-4a23-98ff-7ca96f757a43" style="width:20%" class="column">
+					<figure id="6c14284a-75a3-4bc3-9ef7-7524b96918c5" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/lngzcvfx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/lngzcvfx.bmp" /></a></figure>
+				</div>
+				<div id="f4970728-6ce9-4c48-93c9-0fcb7c2778c0" style="width:20%" class="column">
+					<figure id="14416e65-e19c-4fe9-9986-33e8abe131af" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/e65dlokx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/e65dlokx.bmp" /></a></figure>
+				</div>
+				<div id="d257959d-f5b1-4870-951e-00e047f509b3" style="width:20%" class="column">
+					<figure id="9614615b-5dad-48ee-956f-6b3b04c07a6a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp" /></a></figure>
+				</div>
+				<div id="c1933166-4c97-4812-a417-5a89e930043a" style="width:20%" class="column">
+					<figure id="7b1804e9-b839-4bcf-9514-404ba46db705" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/hkxaiybb.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/hkxaiybb.bmp" /></a></figure>
+				</div>
+			</div>
+			<p id="6915887b-13bc-4534-9c02-7b437db13d00" class="">
+			</p>
+			<h3 id="2c62a4a7-0760-4a4e-bd85-1ef2015d6ce8" class="">RED POETRY - 5 points</h3>
+			<div id="764a1d76-9405-4305-b369-aa94efb4ce97" class="column-list">
+				<div id="7dde8743-4a32-4ad7-86d8-96017df3b79c" style="width:20.000000000000007%" class="column">
+					<figure id="dde0c0e1-93d5-461b-902a-4c7ec41a079c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp" /></a></figure>
+				</div>
+				<div id="1b879c53-15bf-4256-8d32-798f1fded595" style="width:20.000000000000007%" class="column">
+					<figure id="7e3cc036-56a6-4e04-9d1a-c5d52780e620" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/wztwwpql.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/wztwwpql.bmp" /></a></figure>
+				</div>
+				<div id="b789e1f2-b055-4ae8-ba1e-6a77a5e426bd" style="width:20%" class="column">
+					<figure id="b6a5e0f4-e354-4471-be51-f47099a365be" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/5esctjku.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/5esctjku.bmp" /></a></figure>
+				</div>
+				<div id="858f05e7-ea18-4bfd-9e11-a8eb75e96853" style="width:20.000000000000007%" class="column">
+					<figure id="5c20aba3-128f-4f59-87bd-1dc783ffb5ed" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="66f4ee63-856d-4c2a-871e-3a877bc32610" style="width:20%" class="column">
+					<figure id="191d1727-418e-401f-ae04-28a8a9c857cc" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="673172ff-1fd9-47fe-8ed4-3005af55b8b8" class="">
+			</p>
+			<h3 id="3c36365a-909e-44ec-8aa4-39b979627246" class="">BLUE POETRY - 5 points</h3>
+			<div id="3b7fe326-010b-41c0-bbfb-facf3d41cb59" class="column-list">
+				<div id="db403c45-84c1-415c-a542-68580727edfa" style="width:20%" class="column">
+					<figure id="a48fe5f7-5470-4db2-ae8c-445d76a5e62c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp" /></a></figure>
+				</div>
+				<div id="6931c432-e424-455b-a6f3-e37c8c7b38e8" style="width:20%" class="column">
+					<figure id="0b663d22-6a3c-4fa9-972c-49d492e86496" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v0d2keg3.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v0d2keg3.bmp" /></a></figure>
+				</div>
+				<div id="8ae17e13-0bc7-4f57-8fd8-9ecffa2d124f" style="width:20%" class="column">
+					<figure id="ebcdd583-de4d-4d5b-a373-10176af7e62e" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp" /></a></figure>
+				</div>
+				<div id="61c15a63-1cb9-4e25-9c70-f106537e0051" style="width:20%" class="column">
+					<figure id="d45c182c-dfbf-4362-a45d-9c41706b014f" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="0503e4cf-41f1-46eb-a2e3-a842a0de9a79" style="width:20%" class="column">
+					<figure id="a66107d9-b0d3-44c3-939e-a851548bf3c1" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="8682a892-bcc4-418b-a199-d0333032f879" class="">
+			</p>
+			<h3 id="9e4fd595-f34b-4589-8384-77fc5a959962" class="">SLIPS - 1 point (+ 1 for each additional Paper card)
+				- <em>5 or more Slip cards</em></h3>
+			<div id="2447a681-97be-4ee3-9544-6f31147f69bf" class="column-list">
+				<div id="fe99d43a-070f-4d5e-b493-e41ef5704071" style="width:20%" class="column">
+					<figure id="687eb6d2-ca36-43bb-9b78-c0855df087bb" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp" /></a></figure>
+				</div>
+				<div id="651da341-146e-446c-821b-cdf793ff5e48" style="width:20%" class="column">
+					<figure id="f7b81b83-c0d6-473e-9152-88ccafc0b9fa" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp" /></a></figure>
+				</div>
+				<div id="38a50afa-5c32-446d-9ad3-d85983adc3b8" style="width:20%" class="column">
+					<figure id="b59387d4-7b7b-4273-9259-6e93136baa83" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3onssxgx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3onssxgx.bmp" /></a></figure>
+				</div>
+				<div id="01bdabab-bb34-4382-b3cd-28a7d739f432" style="width:20%" class="column">
+					<figure id="31f4aa2c-bd53-4a32-ad18-8b8565771bc4" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/zee6wagh.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/zee6wagh.bmp" /></a></figure>
+				</div>
+				<div id="1edb13f3-0b39-42f0-aef4-ae579b6d665a" style="width:20%" class="column">
+					<figure id="3b1adda5-8c4a-45fe-a043-76d0b55e868b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp" /></a></figure>
+				</div>
+			</div>
+			<p id="4690dd18-627f-4a9e-bb72-e3897822a2d2" class="">
+			</p>
+			<h3 id="a8275b61-3949-4c63-9b4f-4098b4b542ad" class="">MONTHLY - 4 points - <em>4 cards of the same month in
+					the corresponding round</em></h3>
+			<div id="2084864b-8c42-4f2d-bd9f-902952fbf2bf" class="column-list">
+				<div id="5e55fac3-0068-4ea8-8551-3db560814a43" style="width:20%" class="column">
+					<figure id="280f99ab-3bac-4064-a621-bf81b7ac699f" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+				</div>
+				<div id="e7af6d72-4616-47e2-9edd-995591d7d106" style="width:20%" class="column">
+					<figure id="d0962821-94ce-44c0-8c36-86585a55ba0a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp" /></a></figure>
+				</div>
+				<div id="11227493-92e1-4e3d-8e63-667ff9f3ec26" style="width:20%" class="column">
+					<figure id="50c7aff8-9d06-4c12-883b-6d89226dd8ae" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp" /></a></figure>
+				</div>
+				<div id="63f1c0e9-326b-4230-99a5-c923f971d247" style="width:20%" class="column">
+					<figure id="728f5f04-3ce3-4e01-b6b8-e4e20ebdac52" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c0ssugir.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c0ssugir.bmp" /></a></figure>
+				</div>
+				<div id="d6112428-87ae-48cf-80bb-13107569591d" style="width:20%" class="column">
+					<figure id="60968a60-1cc3-49df-b671-3e02f1616d7c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="f37ff5ef-2afa-434c-bb3c-40b7bf28a521" class=""><em>If you don’t plan to play 12 rounds, you can
+					ignore the corresponding round condition.</em></p>
+			<p id="4a721100-f97c-47a3-a291-55f4a6814797" class="">
+			</p>
+			<h3 id="710d2d2a-3b8e-422a-a7b9-e278ed805ec0" class="">MOON VIEWING - 6 points</h3>
+			<div id="b0a82b06-b597-4b83-aff7-a2d8b07befca" class="column-list">
+				<div id="3e8ef8cb-06d3-43b9-99ef-9f2b353d6a09" style="width:20%" class="column">
+					<figure id="403fa66a-bf5c-4116-a438-9535b3090226" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+				</div>
+				<div id="8e932f59-6471-428e-9c33-08e269f3e537" style="width:20%" class="column">
+					<figure id="32d95a1d-efd6-4df9-9da2-dd0e11c7ce71" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp" /></a></figure>
+				</div>
+				<div id="a34781ed-d0ce-49dc-a58c-527f5f721e27" style="width:20%" class="column">
+					<figure id="4dd3ee32-7565-4246-9a17-8f216c166add" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="2efae9d7-ab23-411b-a5d7-5f80d505a362" style="width:20%" class="column">
+					<figure id="ddd7a462-d59f-4907-8226-a2e3a2615ff2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="6efcc9ec-969c-43bd-940b-e4f07e283b88" style="width:20%" class="column">
+					<figure id="5fed31d0-3048-45f4-8965-8da8602617cf" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="aa37b4ba-c65b-44bb-9f40-63a69ad5f8a0" class=""><em>Optional.</em></p>
+			<p id="38bf5a1d-3326-4f69-b117-452217967366" class="">
+			</p>
+			<h3 id="b4679c8a-24ea-4ff4-9b09-51375f9d4b6a" class="">CHERRY BLOSSOM VIEWING - 6 points</h3>
+			<div id="64a9db7a-56e0-46e5-a67a-36099d4ced32" class="column-list">
+				<div id="e3103f63-73b6-4174-a7db-aff5e28d8392" style="width:20%" class="column">
+					<figure id="d519a127-5854-468a-9e63-e39dc9598130" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+				</div>
+				<div id="1282f68f-db66-4db0-a231-df28845c9e98" style="width:20%" class="column">
+					<figure id="93afdf82-253a-4651-af09-e1103ee586f6" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp" /></a></figure>
+				</div>
+				<div id="e6d24c48-0289-40ba-92ab-15ea03ed69c3" style="width:20%" class="column">
+					<figure id="6c81c5d8-2b68-4b4a-91bb-6bccc5352a20" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="22ee8888-05f7-4a3f-a41d-d0f0fbbd5fcd" style="width:20%" class="column">
+					<figure id="bc4a6b10-d3a1-412f-ada9-cef2433a0bf0" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+				<div id="af82b317-9624-46b8-a13a-f44b7d805ba0" style="width:20%" class="column">
+					<figure id="918c22e2-4672-47b1-b220-3d635ecaecf5" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png"><img style="width:512px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/Artboard.png" /></a></figure>
+				</div>
+			</div>
+			<p id="d2f5a7d8-16ff-4253-b6ff-a1f7ece40f32" class=""><em>Optional.</em></p>
+			<p id="03f5428f-f9e0-41af-8252-8a847d0963cd" class="">
+			</p>
+			<h3 id="f596749f-bed8-4921-9b7a-6929682a0a47" class="">CHAFF - 1 point (+ 1 for each additional Chaff card)
+				- <em>10 or more Chaff cards</em></h3>
+			<div id="73046f4c-930b-4dc2-8732-4fb6dada3d4b" class="column-list">
+				<div id="69fcfba2-207b-4225-b0ed-0d1a65e7fc84" style="width:20%" class="column">
+					<figure id="b6097bd2-e395-40c6-af46-6e4c932bc1b2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp" /></a></figure>
+					<figure id="4d75572d-3d9e-43ae-a098-01a5e8d4be0f" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/fzcjna2w.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/fzcjna2w.bmp" /></a></figure>
+				</div>
+				<div id="ab1e4443-7788-4445-81a9-ca4309bff765" style="width:20%" class="column">
+					<figure id="b50820ff-07f4-46a6-bed0-dbdd9a045b29" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/i2j5uudq.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/i2j5uudq.bmp" /></a></figure>
+					<figure id="225fc585-b375-4ffd-940b-68c0db0a716a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp" /></a></figure>
+				</div>
+				<div id="fe2d967b-b4b1-4446-83c4-d9bcd6ba101e" style="width:20%" class="column">
+					<figure id="08a2b1de-e025-46ed-82b1-7b9499e8a326" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/dog9nq0e.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/dog9nq0e.bmp" /></a></figure>
+					<figure id="eb9ba35b-5aee-4c70-9147-97b9b96dd553" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/a59kgs7g.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/a59kgs7g.bmp" /></a></figure>
+				</div>
+				<div id="d45d6d66-46db-4917-aba0-8f31fc7e0ef4" style="width:20%" class="column">
+					<figure id="05fb3616-df8e-40c9-9638-bc11a35f02b9" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q90p9zci.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q90p9zci.bmp" /></a></figure>
+					<figure id="8cf9b682-f73d-4f79-b3ec-4d990c0dcefa" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/6bdlkgtm.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/6bdlkgtm.bmp" /></a></figure>
+				</div>
+				<div id="fda4c6a9-035f-4113-b40c-f2371e388d38" style="width:20%" class="column">
+					<figure id="344c6c90-c5ec-40ae-a9e9-566253b09a45" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/0cbwg39a.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/0cbwg39a.bmp" /></a></figure>
+					<figure id="283d5432-2005-49de-93f0-86acfc384de0" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cc9acihn.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cc9acihn.bmp" /></a></figure>
+				</div>
+			</div>
+			<p id="222f1034-3c73-4616-81a3-633f17f02b43" class=""><em>The Sake Cup card counts as Chaff as well as
+					Animal.</em></p>
+			<p id="6bd608fa-2223-43a5-b618-154b2032f7fe" class="">
+			</p>
+			<h2 id="1964df97-2202-41a3-87fd-5ab2fc084c97" class="">Instant wins and re-deals</h2>
+			<p id="84fb5979-6f04-4186-be6d-5c84685abb91" class="">If either <em>player </em>has been dealt:</p>
+			<ul id="d4d45b5d-c146-4ebe-9efb-3b1e15dafb4d" class="bulleted-list">
+				<li style="list-style-type:disc">a 4 pairs of cards (i.e. any 2 from any 4 <strong>months</strong>);
+				</li>
+			</ul>
+			<ul id="604e72f3-815d-401a-8cef-15bdfab4a1ef" class="bulleted-list">
+				<li style="list-style-type:disc">all 4 cards of the same <strong>month</strong></li>
+			</ul>
+			<p id="4da4e978-b6cc-4310-bebd-c2f7b6541264" class="">then they get 6 points, and a re-deal occurs. </p>
+			<p id="a36267ba-daf2-4a20-b583-56adc36aede6" class="">If either of these hands are dealt to the table, then
+				the round is declared void and a re-deal occurs.</p>
+			<p id="9ad61105-f6d3-40c0-aa7f-b346d7267fa8" class="">
+			</p>
+			<h2 id="d847179f-f71a-49ea-b2c0-249ebc5689bc" class="">Cards</h2>
+			<h3 id="280af27d-db9f-49c1-9890-a6c5cfa4904e" class="">JANUARY - PINE</h3>
+			<div id="f3cb0175-8955-4b3c-b9b8-c882431b71c8" class="column-list">
+				<div id="ccd1aad9-7141-4293-acc1-75525ff56d50" style="width:25%" class="column">
+					<figure id="df796815-06ca-49b1-bb01-fcc8e7cb43b4" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/1zh776y7.bmp" /></a></figure>
+					<p id="d3289e02-7cf8-469c-a634-4645e99f60fd" class="">Light (Sun)</p>
+				</div>
+				<div id="b4a24e6c-9ab5-4cbe-8426-35670e618d25" style="width:25%" class="column">
+					<figure id="a19262eb-72bb-43b4-bfeb-224eac696603" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cx8dywx7.bmp" /></a></figure>
+					<p id="103f1eaf-926c-444a-b38f-b8d503947573" class="">Slip (Poetry)</p>
+				</div>
+				<div id="842b7975-d821-468b-8c4b-384b264060ff" style="width:25%" class="column">
+					<figure id="4e92e03a-7213-47e2-876a-237848d8ba90" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/m9sdopg6.bmp" /></a></figure>
+					<p id="a27d2b0c-9c41-4271-90b7-73e1ebe94e72" class="">Chaff</p>
+				</div>
+				<div id="b9a5ca13-74e4-4dd6-ab99-0f2bbb29c2a2" style="width:25%" class="column">
+					<figure id="5509c78b-0b6a-4d18-abf9-70ac443820b4" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c0ssugir.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c0ssugir.bmp" /></a></figure>
+					<p id="d39d34fd-8fc3-46cf-baa7-3e9defc5fad9" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="29f5d9ec-c542-4f87-bb1b-aeaec004771a" class="">
+			</p>
+			<h3 id="58c480bd-cee0-42e6-9d7b-56ba74659999" class="">FEBRUARY - PLUM BLOSSOM</h3>
+			<div id="b0e04160-0ba8-4194-9e03-1d39daafae04" class="column-list">
+				<div id="bc9a8900-4501-4de9-ad93-7c986c90b5e1" style="width:25%" class="column">
+					<figure id="1b4f18e6-4720-429a-92aa-95cd15fa275d" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/aq91q86r.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/aq91q86r.bmp" /></a></figure>
+					<p id="c8ff1414-4289-454a-b493-c0e5c15c86be" class="">Animal (Bush warbler)</p>
+				</div>
+				<div id="7bab6627-acd7-4fda-904f-de6d86bdea66" style="width:25%" class="column">
+					<figure id="ba3640fa-4df4-48a5-8170-9bd069b0d99b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/wztwwpql.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/wztwwpql.bmp" /></a></figure>
+					<p id="9a98ca3f-9991-45d9-84e7-fe288f473cac" class="">Slip (Poetry)</p>
+				</div>
+				<div id="d2f2cf70-9616-4e4e-89c7-ec1694654dcb" style="width:25%" class="column">
+					<figure id="b71d43cf-6b03-4c51-9ca6-e02dd50f6e7b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/ut4ygkpu.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/ut4ygkpu.bmp" /></a></figure>
+					<p id="09da3e95-1654-44fe-bb42-7911291294dc" class="">Chaff</p>
+				</div>
+				<div id="243845fa-5158-48d3-9daf-2055ab459a6b" style="width:25%" class="column">
+					<figure id="3fbfad82-2a59-4340-9450-d7cd43a3de52" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/i2j5uudq.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/i2j5uudq.bmp" /></a></figure>
+					<p id="07ae2c06-7d29-4af6-b4d2-248237c00d4b" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="4cd2994b-ebd7-4b5b-abe9-e4a04c4cedc0" class="">
+			</p>
+			<h3 id="dd0317cd-dd5c-4cca-ab2f-1fc2f507fc1e" class="">MARCH - CHERRY BLOSSOM</h3>
+			<div id="49ec005b-da13-4205-b807-c367413fe62b" class="column-list">
+				<div id="ff00174e-2078-4bf5-bd36-857d13be502f" style="width:25%" class="column">
+					<figure id="0b4494dc-a04b-4f69-bbbd-bbd49d472459" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/esn1w7zw.bmp" /></a></figure>
+					<p id="7783f61e-aaa7-4807-a3c9-e2d13b4a2d42" class="">Light (Curtain)</p>
+				</div>
+				<div id="ea04d725-f4db-419a-83a9-cc68c227c35b" style="width:25%" class="column">
+					<figure id="c04c5585-12ae-442b-8893-11d1ad5e7aba" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/5esctjku.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/5esctjku.bmp" /></a></figure>
+					<p id="09f6304d-2e78-4b2f-a925-6c2ae3c7f4f2" class="">Slip (Poetry)</p>
+				</div>
+				<div id="b49f19ec-bd63-4360-a589-0f8b00a319fb" style="width:25%" class="column">
+					<figure id="da2c47b3-5549-465b-853e-41ce44f2c92e" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/ausq4an8.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/ausq4an8.bmp" /></a></figure>
+					<p id="c0b8901a-a11c-421a-a12d-5c05cf491337" class="">Chaff</p>
+				</div>
+				<div id="4d8aea38-d2a6-4069-955c-7b2d201cdd5d" style="width:25%" class="column">
+					<figure id="9ca7a286-7f9f-41fa-a73b-75d2fd065fb8" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c5h2v5p9.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c5h2v5p9.bmp" /></a></figure>
+					<p id="b081593d-2cb4-4c57-85ba-5e816f881782" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="162fbdcb-fc6e-40b6-9b96-da61a76f0513" class="">
+			</p>
+			<h3 id="ed5f3712-cb89-47b7-8813-b5c16433e1d1" class="">APRIL - WISTERIA</h3>
+			<div id="e05a7419-8d58-46bf-80fd-2de52fce7b84" class="column-list">
+				<div id="9caa01bd-97d7-47b4-98db-94337a6b2fff" style="width:25%" class="column">
+					<figure id="9cd74e59-7cb7-4e63-b264-4a224b6ecc83" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/lngzcvfx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/lngzcvfx.bmp" /></a></figure>
+					<p id="eb81aeb3-a17e-4db5-bb27-db060d044792" class="">Animal (Cuckoo)</p>
+				</div>
+				<div id="12019a17-60ac-4a8a-9a6c-8aa7145a2ac8" style="width:25%" class="column">
+					<figure id="745241e1-6c28-4854-82a2-9072b120d8c8" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3onssxgx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3onssxgx.bmp" /></a></figure>
+					<p id="97d33580-bb9a-496f-9ddd-9e12c3529417" class="">Slip (Plain)</p>
+				</div>
+				<div id="e7134643-4621-4e1a-815e-f11cf506a3c6" style="width:25%" class="column">
+					<figure id="efab0b4d-f35b-43dd-baad-abb76f28aa9a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/dog9nq0e.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/dog9nq0e.bmp" /></a></figure>
+					<p id="a1f3628b-0c30-49c3-b39d-b19372e15952" class="">Chaff</p>
+				</div>
+				<div id="9dc7fd24-8fc3-40fe-a177-76a99af0bc32" style="width:25%" class="column">
+					<figure id="f9136a90-e312-4a49-a65b-c0cef9512510" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3n882fqi.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/3n882fqi.bmp" /></a></figure>
+					<p id="88ed2941-78f6-4bd1-a968-a6dd34be700d" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="97fc1489-d840-4422-9692-5b8230eefdb4" class="">
+			</p>
+			<h3 id="3f17b823-3877-43a8-9ee4-e5f5d6ba1444" class="">MAY - IRIS</h3>
+			<div id="8b36218d-24ed-4b90-bac5-a7b8f44d8d1e" class="column-list">
+				<div id="664a424a-f87e-410c-b7e4-88abc5c07245" style="width:25%" class="column">
+					<figure id="aff1a397-a89b-4975-b7a1-0f08c834c25c" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/e65dlokx.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/e65dlokx.bmp" /></a></figure>
+					<p id="e83a64d4-32fd-41be-8692-e2fe1d42caa9" class="">Animal (Eight-plank bridge)</p>
+				</div>
+				<div id="d5914689-22f7-4d13-bda4-e4209949959e" style="width:25%" class="column">
+					<figure id="d26b57a7-ff9d-4fa7-8459-85852ed9ff0b" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/2bf2mx65.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/2bf2mx65.bmp" /></a></figure>
+					<p id="fc9d674b-4475-4710-a6ea-890825c93080" class="">Slip (Plain)</p>
+				</div>
+				<div id="c595fb1b-8216-45f6-8684-b0404ca3fee3" style="width:25%" class="column">
+					<figure id="a4bf68a4-c187-429d-b069-8675d41bbdbb" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/7a3zmje4.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/7a3zmje4.bmp" /></a></figure>
+					<p id="8061a781-9b80-4f51-8907-0f7078f4ac0d" class="">Chaff</p>
+				</div>
+				<div id="e1e73e22-672f-42d3-ac9c-82e37c4a803c" style="width:25%" class="column">
+					<figure id="c4faf5f3-4233-4c41-a07a-5c9987d1df68" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q90p9zci.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q90p9zci.bmp" /></a></figure>
+					<p id="9eb1a82a-de8a-4abe-a5c7-5a5afb463e35" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="e7412679-a458-41df-ac51-f5a93cf4fa2e" class="">
+			</p>
+			<h3 id="d81bdb81-e5a7-4418-8373-22a8b350a954" class="">JUNE - PEONY</h3>
+			<div id="07b6aa4b-91b2-4674-93e5-e67f21645370" class="column-list">
+				<div id="90c97df0-c2a1-4d45-921a-3b7025d70c4a" style="width:25%" class="column">
+					<figure id="0202c3e9-faa3-47af-bd97-ac99c8f9b922" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/461kviyt.bmp" /></a></figure>
+					<p id="63ffcb2d-fd1a-4f9d-bcd8-023056192766" class="">Animal (Butterflies)</p>
+				</div>
+				<div id="2390ca36-1041-49dc-acfb-333836fff9ba" style="width:25%" class="column">
+					<figure id="b40382b0-746b-46da-b862-25aa77553513" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/n8d091gl.bmp" /></a></figure>
+					<p id="1a015657-b76a-43bf-9937-e4c85398bee7" class="">Slip (Blue)</p>
+				</div>
+				<div id="946da0d3-d753-494f-bb3e-4e6e082f88dc" style="width:25%" class="column">
+					<figure id="ef111751-490a-49b1-aec2-040ccdd5f7f7" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/0cbwg39a.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/0cbwg39a.bmp" /></a></figure>
+					<p id="39d3731d-53a7-4d3b-9960-27a1a94af984" class="">Chaff</p>
+				</div>
+				<div id="e7d6362c-8d03-45a6-90d8-35f4a9cd05c6" style="width:25%" class="column">
+					<figure id="ae7d0e00-b050-4b30-998f-6e86cc210b54" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/z3vajh4e.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/z3vajh4e.bmp" /></a></figure>
+					<p id="3acfcf41-0976-4fda-991b-3fd3b9f2a838" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="9e118ea4-eece-4e4d-bbec-4736be976bef" class="">
+			</p>
+			<h3 id="a7544f52-5be6-4405-b08b-9cf2a8ca5f80" class="">JULY - BUSH CLOVER</h3>
+			<div id="2e637cd4-9e83-4e01-8308-af144d360e9c" class="column-list">
+				<div id="2a6f837e-29bd-4c61-b073-dd73ca4520af" style="width:25%" class="column">
+					<figure id="ee3f5f8d-6670-4bd2-916d-093fdabeedd2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/tocq74uj.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/tocq74uj.bmp" /></a></figure>
+					<p id="4ccac67c-ae03-4137-96ea-4442ce48cfae" class="">Animal (Boar)</p>
+				</div>
+				<div id="3c93b56f-6898-42a5-822c-40cfa43d073d" style="width:25%" class="column">
+					<figure id="6d9a3c0e-0d0d-4317-8ef8-b908033b6f30" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/zee6wagh.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/zee6wagh.bmp" /></a></figure>
+					<p id="75d2096c-885b-49c9-a9f4-3da3e7d7ddb2" class="">Slip (Plain)</p>
+				</div>
+				<div id="46743e3d-f810-4849-91d5-ec0eaebf730b" style="width:25%" class="column">
+					<figure id="e67a8e7d-8e91-4242-9217-e4a9814f60b4" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/7yzisko8.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/7yzisko8.bmp" /></a></figure>
+					<p id="855b621d-80fd-4688-8fcb-4143257b9bb1" class="">Chaff</p>
+				</div>
+				<div id="dea0b153-6a78-4290-946b-a2dcbbe3c690" style="width:25%" class="column">
+					<figure id="3fa9d517-d4b7-40f3-8a65-5aa8a5c9fc23" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rluxhdfc.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rluxhdfc.bmp" /></a></figure>
+					<p id="6d21dbba-0007-4770-871d-5c733e358ee6" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="51f37aff-aa7b-4167-8d1c-630f578aefe1" class="">
+			</p>
+			<h3 id="a50c1ec4-abd3-4cf4-88f8-0d86b2c0c202" class="">AUGUST - SUSUKI GRASS</h3>
+			<div id="672c5fda-bd3e-4353-8364-692910d9921f" class="column-list">
+				<div id="75755cca-dcce-4aaa-a82a-6e5ca001d9b3" style="width:25%" class="column">
+					<figure id="a519fe1c-ff26-42d1-96ec-3fd6b261e818" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/oe6fpxet.bmp" /></a></figure>
+					<p id="2fabc883-527a-4ace-ab44-69772b80db79" class="">Light (Moon)</p>
+				</div>
+				<div id="f6e5809a-335f-4be7-a8cf-cdabb29825a6" style="width:25%" class="column">
+					<figure id="fdf9a484-241c-4450-8bae-ef79f8a57578" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/hkxaiybb.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/hkxaiybb.bmp" /></a></figure>
+					<p id="df949214-207c-42a7-8e20-b921d9fa5a3a" class="">Animal (Geese)</p>
+				</div>
+				<div id="64e0bfd1-d006-457d-8d7c-f0fb7e5d6ae7" style="width:25%" class="column">
+					<figure id="fae2a36d-d235-49cd-80e3-fa2a29860943" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/fzcjna2w.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/fzcjna2w.bmp" /></a></figure>
+					<p id="f15c5c45-00bf-4669-bb29-6e5c025a1edd" class="">Chaff</p>
+				</div>
+				<div id="2c09a58b-59c3-401c-bda6-53da2f3c3573" style="width:25%" class="column">
+					<figure id="870b476a-97d1-4d9c-9190-fb9b39bb0a66" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/vsha3g5x.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/vsha3g5x.bmp" /></a></figure>
+					<p id="27cc9345-2b66-4d1b-a066-62a905a15730" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="1c517ebf-332c-4d8b-ab06-e989168878c8" class="">
+			</p>
+			<h3 id="8fb86a53-8d5f-436d-92ff-6ae94bc318a3" class="">SEPTEMBER - CHRYSANTHEMUM</h3>
+			<div id="61a07813-6302-4f0e-9230-acad3e705db3" class="column-list">
+				<div id="0c4f2afe-b43d-4942-ac97-ef700647f00c" style="width:25%" class="column">
+					<figure id="e880fd45-a4e4-4be5-bf37-bebae2d755a2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/evil3k2n.bmp" /></a></figure>
+					<p id="e754efeb-d829-4c79-b280-624240453201" class="">Animal/Chaff (Sake Cup)</p>
+				</div>
+				<div id="9364f14f-82c5-435f-ae5b-d5cf1b23c4b4" style="width:25%" class="column">
+					<figure id="ceb70295-71a8-4abc-88b5-93d97e98f582" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v0d2keg3.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v0d2keg3.bmp" /></a></figure>
+					<p id="ae74082c-d1a0-40bc-86f1-f2c5422eed13" class="">Slip (Blue)</p>
+				</div>
+				<div id="8e45972e-598f-4809-bca7-eeab28b140a4" style="width:25%" class="column">
+					<figure id="388f1f9e-59a0-42aa-a73a-4fe531a992c2" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/h80ms3bd.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/h80ms3bd.bmp" /></a></figure>
+					<p id="016afe6d-4827-464b-902c-fbb13057417b" class="">Chaff</p>
+				</div>
+				<div id="3db6406a-ecc3-4c7c-93fe-5361744fffbb" style="width:25%" class="column">
+					<figure id="56afc8aa-7da0-4ac3-b9d9-3f3c854b4ade" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c7jkjipf.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/c7jkjipf.bmp" /></a></figure>
+					<p id="c25ca400-77a5-4fae-a57b-2706a34c343d" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="dc19fe2b-7c7b-44e5-b4a2-4585094f6d5b" class="">
+			</p>
+			<h3 id="3a6f79e6-b12b-42d1-9fb6-dee5e4c3c47b" class="">OCTOBER - MAPLE</h3>
+			<div id="f8b7ca14-2959-4a99-a5db-1b5cd5dcaf69" class="column-list">
+				<div id="e724baf8-030f-49bf-bfb8-11a8f3879a53" style="width:25%" class="column">
+					<figure id="9258c9d5-640e-4586-9e77-098512bf95b0" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rwnky30e.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/rwnky30e.bmp" /></a></figure>
+					<p id="2c0ec7a5-7fa3-4af8-922d-16e22501651a" class="">Animal (Deer)</p>
+				</div>
+				<div id="11709081-1b75-4baa-9205-0c291c7a558a" style="width:25%" class="column">
+					<figure id="e03cf6b6-117a-41c7-91f4-48da3a6dafe6" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/yhwel586.bmp" /></a></figure>
+					<p id="b9baaf81-01ec-41fc-8487-4b8933b9b8aa" class="">Slip (Blue)</p>
+				</div>
+				<div id="97c00b1f-a9d2-429d-a470-546194101380" style="width:25%" class="column">
+					<figure id="42cf4fc5-aa8c-4b4d-a8d3-627beb4b5ea6" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/6bdlkgtm.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/6bdlkgtm.bmp" /></a></figure>
+					<p id="a7d6fc84-901e-41fa-b95e-128438bd0b70" class="">Chaff</p>
+				</div>
+				<div id="625e96ce-d09e-402e-95d5-115eb0ca29e9" style="width:25%" class="column">
+					<figure id="c8047764-1714-453f-b3d7-0aba68832454" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/jlxs58xh.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/jlxs58xh.bmp" /></a></figure>
+					<p id="b6701454-7b32-40f0-9dc4-9497efb1129c" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="98c81814-f56e-45d4-b74b-a71f64121408" class="">
+			</p>
+			<h3 id="d5894652-84cd-4443-9278-846612db1c0d" class="">NOVEMBER - WILLOW</h3>
+			<div id="acb4b221-4a34-48d8-96d9-fa914fdd48a6" class="column-list">
+				<div id="74fb3fa7-b9b2-40a2-9d40-a042dccb5536" style="width:25%" class="column">
+					<figure id="704d352e-87b5-4a7f-b52a-0150865bdf5a" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/y5p9jel6.bmp" /></a></figure>
+					<p id="5a9b7148-e549-4853-9245-663e4e4901c1" class="">Light (Rain)</p>
+				</div>
+				<div id="c1a9fd42-b90f-4722-93d2-619be02e4fee" style="width:25%" class="column">
+					<figure id="0c575263-ed15-4c28-b937-b6ad786159a7" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/09shgpw0.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/09shgpw0.bmp" /></a></figure>
+					<p id="0f808e92-9dbd-42e7-96a5-ff5bd20ae19b" class="">Animal (Swallow)</p>
+				</div>
+				<div id="9ec31d4b-2bbb-4287-8706-c29107643c3e" style="width:25%" class="column">
+					<figure id="9a38df49-ee80-4ee3-8103-c6acea9c4414" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/qnlm4ub6.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/qnlm4ub6.bmp" /></a></figure>
+					<p id="12ab6136-7f4d-4e00-be80-2e9cb69049ac" class="">Slip (Plain)</p>
+				</div>
+				<div id="5ca9a452-9ea7-4d2d-9d06-9cba949f68ac" style="width:25%" class="column">
+					<figure id="17e1e392-79b6-413a-aff7-78c4bd82c0c3" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/a59kgs7g.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/a59kgs7g.bmp" /></a></figure>
+					<p id="e02c4236-d091-4558-ad0d-9c4168195258" class="">Chaff</p>
+				</div>
+			</div>
+			<p id="ebcfbc8e-5672-48fc-b7ea-aa68187d7d4f" class="">
+			</p>
+			<h3 id="ff74ba8a-f592-457e-b9ad-530b4895e133" class="">DECEMBER - PAULOWNIA</h3>
+			<div id="3b2a7521-6c3f-4d30-94c3-3438948ae7b4" class="column-list">
+				<div id="5d9e0c20-2dda-4e5e-a0ae-3f327d5d2dc1" style="width:25%" class="column">
+					<figure id="b59d9f33-a786-478e-bfc6-f4c7eead5a81" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cfadc2f5.bmp" /></a></figure>
+					<p id="adfb3601-39a0-48d0-9909-a2cb6fcc0f51" class="">Light (Dragon)</p>
+				</div>
+				<div id="b170f52f-522f-480e-b203-63095829af54" style="width:25%" class="column">
+					<figure id="f892f79b-6965-4c2c-9150-c495892e248e" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v3x1d8ff.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/v3x1d8ff.bmp" /></a></figure>
+					<p id="20939ad8-dd7b-4bd3-b6f7-256f40a93165" class="">Chaff</p>
+				</div>
+				<div id="f46f33ca-5828-48bb-b0ab-9186456d82fd" style="width:25%" class="column">
+					<figure id="1ae98ebd-1029-4f7c-9d0e-b4509016cc7f" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cc9acihn.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/cc9acihn.bmp" /></a></figure>
+					<p id="c8a29e8b-ef63-4fbe-ab7a-3c7eedec0549" class="">Chaff</p>
+				</div>
+				<div id="a48a8046-e3ba-4e66-99bd-689581d99c00" style="width:25%" class="column">
+					<figure id="292a00a4-3ed6-44fc-a8d1-335ec14f5136" class="image"><a
+							href="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q0h5hs0m.bmp"><img style="width:800px"
+								src="Koi-koi%2085108965804c465d85e6f3276eca6cf3/q0h5hs0m.bmp" /></a></figure>
+					<p id="76fa0135-0eba-4bbc-8ef6-5b4e3bfa3605" class="">Chaff</p>
+				</div>
+			</div>
+		</div>
+	</article>
+</body>
+
+</html>
